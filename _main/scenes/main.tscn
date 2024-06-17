@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8f442136ovt"]
+
+[ext_resource type="PackedScene" uid="uid://dh5b1hw7vmffq" path="res://_main/scenes/board.tscn" id="1_wjdom"]
+[ext_resource type="PackedScene" uid="uid://b7uchrlnd2q6d" path="res://_main/scenes/piece.tscn" id="2_07akw"]
+
+[node name="Main" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Board" parent="CanvasLayer" instance=ExtResource("1_wjdom")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="Piece" parent="CanvasLayer" instance=ExtResource("2_07akw")]
+offset_left = 127.0
+offset_top = 267.0
+offset_right = 283.0
+offset_bottom = 423.0

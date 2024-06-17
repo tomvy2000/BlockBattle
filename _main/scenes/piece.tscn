@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7uchrlnd2q6d"]
+
+[ext_resource type="Script" path="res://_main/scenes/piece.gd" id="1_hfscd"]
+[ext_resource type="PackedScene" uid="uid://nddxfm5nwjbe" path="res://_main/scenes/piece_block.tscn" id="2_uju0i"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mnbmv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="Piece" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_mnbmv")
+script = ExtResource("1_hfscd")
+grid = Array[int]([0, 1, 0, 0, 1, 0, 0, 1, 0])
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 3
+
+[node name="PieceBlock" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
+layout_mode = 2
+
+[node name="PieceBlock2" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
+layout_mode = 2
+
+[node name="PieceBlock3" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
+layout_mode = 2
+
+[node name="PieceBlock4" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
+layout_mode = 2
+
+[node name="PieceBlock5" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
+layout_mode = 2
+
+[node name="PieceBlock6" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
+layout_mode = 2
+
+[node name="PieceBlock7" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
+layout_mode = 2
+
+[node name="PieceBlock8" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
+layout_mode = 2
+
+[node name="PieceBlock9" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
+layout_mode = 2
