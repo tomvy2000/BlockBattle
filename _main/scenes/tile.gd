@@ -16,13 +16,13 @@ func _ready() -> void:
 	
 func change_state(state: STATE):
 	tile_state = state
-	match tile_state:
-		STATE.TAKEN:
-			color_rect.color = Color.RED
-		STATE.EMPTY:
-			color_rect.color = Color.WHITE
-		STATE.HOVER:
-			color_rect.color = Color.REBECCA_PURPLE
+	#match tile_state:
+		#STATE.TAKEN:
+			#color_rect.color = Color.RED
+		#STATE.EMPTY:
+			#color_rect.color = Color.WHITE
+		#STATE.HOVER:
+			#color_rect.color = Color.REBECCA_PURPLE
 			
 func set_type(type: TYPE) -> void:
 	tile_type = type
@@ -39,6 +39,9 @@ func set_color() -> void:
 		TYPE.EVADE	:
 			color_rect.color = Color.YELLOW
 	color = color_rect.color
+	
+func reset_color() -> void:
+	color_rect.color = color
 			
 func _on_area_entered(area: Area2D) -> void:
 	if tile_state == STATE.EMPTY:

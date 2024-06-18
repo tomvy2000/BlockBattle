@@ -11,9 +11,11 @@ border_width_bottom = 4
 border_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fcs5"]
+size = Vector2(23, 20)
 
 [node name="Tile" type="PanelContainer"]
 custom_minimum_size = Vector2(50, 50)
+pivot_offset = Vector2(25, 25)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0ubdp")
 script = ExtResource("1_hpefw")
 
@@ -26,5 +28,5 @@ layout_mode = 2
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(25, 25)
+position = Vector2(24, 26)
 shape = SubResource("RectangleShape2D_6fcs5")
