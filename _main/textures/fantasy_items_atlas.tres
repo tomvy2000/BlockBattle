@@ -1,0 +1,8 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://duhn2cbny2pvh"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vuxj8"]
+load_path = "res://.godot/imported/RPG_Weapons.png-246040067714994bdb68db6280889619.ctex"
+
+[resource]
+atlas = SubResource("CompressedTexture2D_vuxj8")
+region = Rect2(44, 286, 43, 51)

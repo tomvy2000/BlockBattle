@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b8f442136ovt"]
+[gd_scene load_steps=4 format=3 uid="uid://b8f442136ovt"]
 
 [ext_resource type="PackedScene" uid="uid://dh5b1hw7vmffq" path="res://_main/scenes/board.tscn" id="1_wjdom"]
-[ext_resource type="PackedScene" uid="uid://b7uchrlnd2q6d" path="res://_main/scenes/piece.tscn" id="2_07akw"]
-[ext_resource type="Texture2D" uid="uid://5toqxpi27ii2" path="res://icon.svg" id="3_6o4at"]
+[ext_resource type="PackedScene" uid="uid://d0wpn7ufk6wbd" path="res://_main/scenes/item_piece.tscn" id="2_vprhu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sn1h"]
 bg_color = Color(0.227451, 0.619608, 0.968627, 1)
@@ -52,11 +51,11 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Piece" parent="CanvasLayer/HUD/PanelContainer/HBoxContainer/HBoxContainer/Piece Holder" instance=ExtResource("2_07akw")]
+[node name="ItemPiece" parent="CanvasLayer/HUD/PanelContainer/HBoxContainer/HBoxContainer/Piece Holder" instance=ExtResource("2_vprhu")]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("3_6o4at")
+shape = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, -1), Vector2i(1, -1), Vector2i(1, 0)])
+width = 2
+height = 2
 
 [node name="Piece Holder2" type="PanelContainer" parent="CanvasLayer/HUD/PanelContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 200)

@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0wpn7ufk6wbd"]
+
+[ext_resource type="Script" path="res://_main/scenes/piece.gd" id="1_4kahl"]
+[ext_resource type="Texture2D" uid="uid://duhn2cbny2pvh" path="res://_main/textures/fantasy_items_atlas.tres" id="3_d5qrm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n37vm"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aregl"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="ItemPiece" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_4kahl")
+shape = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, -1)])
+
+[node name="IconContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 47.0
+offset_bottom = 55.0
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_n37vm")
+
+[node name="MarginContainer" type="MarginContainer" parent="IconContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Icon" type="TextureRect" parent="IconContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("3_d5qrm")
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aregl")
+
+[node name="BlockContainer" type="Control" parent="PanelContainer2"]
+visible = false
+layout_mode = 2
+
+[connection signal="mouse_entered" from="IconContainer/MarginContainer/Icon" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="IconContainer/MarginContainer/Icon" to="." method="_on_mouse_exited"]

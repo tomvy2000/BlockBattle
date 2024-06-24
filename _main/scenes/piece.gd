@@ -1,27 +1,32 @@
-extends PanelContainer
+extends Control
 
 @export var grid: Array[int] = []
 @export var texture: Texture
+@export var shape: Array[Vector2i]
+@export var width: int
+@export var height: int
 
-@onready var grid_container: GridContainer = $MarginContainer/GridContainer
+@onready var icon_container: PanelContainer = $IconContainer
+
+@onready var block_container = $PanelContainer2/BlockContainer
+const PIECE_BLOCK = preload("res://_main/scenes/piece_block.tscn")
+const BLOCK_SIZE = 40
+const BLOCK_SPACE = 7
 
 var active_blocks: Array[PieceBlock]
 var is_dragging: bool = false
 var original_position: Vector2
 
 func _ready() -> void:
-	var blocks = grid_container.find_children("", "PieceBlock", false)
-	assert(blocks.size() == grid.size())
-	var count = 0
-	for i in grid:
-		if i == 0:
-			blocks[count].color.a = 0
-			blocks[count].area_2d.queue_free()
-			#blocks[count].area_2d.monitoring = false
-		else:
-			active_blocks.append(blocks[count])
-		count += 1
+	for s in shape:
+		var new_block = PIECE_BLOCK.instantiate()
+		block_container.add_child(new_block)
+		new_block.position = Vector2(s.x * BLOCK_SIZE + s.x * BLOCK_SPACE,\
+									 -s.y * BLOCK_SIZE - s.y * BLOCK_SPACE)
+		active_blocks.append(new_block)
 		
+	icon_container.size = Vector2(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE,\
+								  height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)	
 func _process(_delta: float) -> void:
 	if is_dragging:
 		global_position = get_global_mouse_position()
@@ -44,6 +49,12 @@ func _gui_input(event: InputEvent) -> void:
 				snap_to(active_blocks[0].hovered_tile.global_position)
 			else:
 				global_position = original_position
+				
+func _on_mouse_entered() -> void:
+	block_container.visible = true
+	
+func _on_mouse_exited() -> void:
+	block_container.visible = false
 	
 func can_place() -> bool:
 	for block: PieceBlock in active_blocks:
