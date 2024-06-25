@@ -1,7 +1,7 @@
 extends Control
 
 @export var grid: Array[int] = []
-@export var texture: Texture
+@export var texture: TextureRect
 @export var shape: Array[Vector2i]
 @export var width: int
 @export var height: int
@@ -10,8 +10,8 @@ extends Control
 
 @onready var block_container = $PanelContainer2/BlockContainer
 const PIECE_BLOCK = preload("res://_main/scenes/piece_block.tscn")
-const BLOCK_SIZE = 40
-const BLOCK_SPACE = 7
+const BLOCK_SIZE = 7
+const BLOCK_SPACE = 0
 
 var active_blocks: Array[PieceBlock]
 var is_dragging: bool = false
@@ -24,7 +24,8 @@ func _ready() -> void:
 		new_block.position = Vector2(s.x * BLOCK_SIZE + s.x * BLOCK_SPACE,\
 									 -s.y * BLOCK_SIZE - s.y * BLOCK_SPACE)
 		active_blocks.append(new_block)
-		
+	texture.size = Vector2(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE,\
+								  height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)
 	icon_container.size = Vector2(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE,\
 								  height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)	
 func _process(_delta: float) -> void:

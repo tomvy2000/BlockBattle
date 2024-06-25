@@ -1,0 +1,109 @@
+[gd_scene load_steps=23 format=3 uid="uid://m7umt3p4j2mh"]
+
+[ext_resource type="Texture2D" uid="uid://61h2qoqtyc7b" path="res://_main/sprites/king/Idle (78x58).png" id="1_c5l7k"]
+[ext_resource type="Animation" uid="uid://dlms1incamv0f" path="res://_main/animationas/king/attack.res" id="2_cyt28"]
+[ext_resource type="Animation" uid="uid://bxjn0rufp61we" path="res://_main/animationas/king/die.res" id="3_xhcol"]
+[ext_resource type="Animation" uid="uid://c87agsaup663k" path="res://_main/animationas/king/hit.res" id="4_gnhpk"]
+[ext_resource type="Animation" uid="uid://pq3j751j0s3h" path="res://_main/animationas/king/idle.res" id="5_4qisr"]
+[ext_resource type="Script" path="res://_main/scripts/health_component.gd" id="6_ulb83"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obwbl"]
+size = Vector2(20, 23.6667)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fpx8g"]
+_data = {
+"attack": ExtResource("2_cyt28"),
+"die": ExtResource("3_xhcol"),
+"hit": ExtResource("4_gnhpk"),
+"idle": ExtResource("5_4qisr")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7askd"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vegio"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nhr0o"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dqqaw"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_563k4"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kco6o"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j4tjn"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iuxrv"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pp4tj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_obarf"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f3k17"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rtdkg"]
+states/Start/position = Vector2(231, 105)
+states/attack/node = SubResource("AnimationNodeAnimation_7askd")
+states/attack/position = Vector2(358, 302)
+states/die/node = SubResource("AnimationNodeAnimation_vegio")
+states/die/position = Vector2(480, 103)
+states/hit/node = SubResource("AnimationNodeAnimation_nhr0o")
+states/hit/position = Vector2(480, 200)
+states/idle/node = SubResource("AnimationNodeAnimation_dqqaw")
+states/idle/position = Vector2(358, 105)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_563k4"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_kco6o"), "die", "End", SubResource("AnimationNodeStateMachineTransition_j4tjn"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_iuxrv"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_pp4tj"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_obarf"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_f3k17")]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tjrw"]
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7grxw"]
+bg_color = Color(0.981464, 0.35555, 0.379642, 1)
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+
+[node name="Player" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-7.66666, 2.16667)
+shape = SubResource("RectangleShape2D_obwbl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_c5l7k")
+hframes = 11
+frame = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fpx8g")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_rtdkg")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -18.0
+offset_top = -19.0
+offset_right = 2.0
+offset_bottom = -15.0
+theme_override_styles/background = SubResource("StyleBoxFlat_8tjrw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7grxw")
+value = 1.0
+show_percentage = false
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("health_bar")]
+script = ExtResource("6_ulb83")
+max_hp = 100
+health_bar = NodePath("../ProgressBar")

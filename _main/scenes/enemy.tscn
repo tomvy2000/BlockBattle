@@ -1,0 +1,79 @@
+[gd_scene load_steps=20 format=3 uid="uid://csgwh3y7xppeh"]
+
+[ext_resource type="Texture2D" uid="uid://bg8rctilxriop" path="res://_main/sprites/pig/Dead (34x28).png" id="1_t6ton"]
+[ext_resource type="Animation" uid="uid://but8jw3po4lt7" path="res://_main/animationas/pig/attack.res" id="2_jqj6h"]
+[ext_resource type="Animation" uid="uid://bucbdnw4yt3yl" path="res://_main/animationas/pig/die.res" id="3_6he6l"]
+[ext_resource type="Animation" uid="uid://vuy8tafiyi3e" path="res://_main/animationas/pig/hit.res" id="4_x0wdv"]
+[ext_resource type="Animation" uid="uid://bj880nwk1xgj5" path="res://_main/animationas/pig/idle.res" id="5_iwudb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obwbl"]
+size = Vector2(20, 23.6667)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ci6i"]
+_data = {
+"attack": ExtResource("2_jqj6h"),
+"die": ExtResource("3_6he6l"),
+"hit": ExtResource("4_x0wdv"),
+"idle": ExtResource("5_iwudb")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v71a0"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_icja1"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1jgep"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ym2n2"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3moxj"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_46b7p"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c1uej"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m6ard"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3bkpb"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uui6r"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_81vlq"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_7pdhd"]
+states/attack/node = SubResource("AnimationNodeAnimation_v71a0")
+states/attack/position = Vector2(394, 267)
+states/die/node = SubResource("AnimationNodeAnimation_icja1")
+states/die/position = Vector2(534, 101)
+states/hit/node = SubResource("AnimationNodeAnimation_1jgep")
+states/hit/position = Vector2(547, 260)
+states/idle/node = SubResource("AnimationNodeAnimation_ym2n2")
+states/idle/position = Vector2(394, 98)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_3moxj"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_46b7p"), "die", "End", SubResource("AnimationNodeStateMachineTransition_c1uej"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_m6ard"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_3bkpb"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_uui6r"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_81vlq")]
+
+[node name="Enemy" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(3, 2.66667)
+shape = SubResource("RectangleShape2D_obwbl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_t6ton")
+hframes = 4
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_5ci6i")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_7pdhd")
+anim_player = NodePath("../AnimationPlayer")

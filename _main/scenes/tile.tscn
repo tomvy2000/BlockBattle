@@ -2,25 +2,25 @@
 
 [ext_resource type="Script" path="res://_main/scenes/tile.gd" id="1_hpefw"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ubdp"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_om34a"]
+bg_color = Color(0.0226699, 0.0842337, 0.0485004, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6fcs5"]
-size = Vector2(23, 20)
+size = Vector2(2.5, 2.5)
 
 [node name="Tile" type="PanelContainer"]
-custom_minimum_size = Vector2(50, 50)
-pivot_offset = Vector2(25, 25)
-theme_override_styles/panel = SubResource("StyleBoxFlat_0ubdp")
+custom_minimum_size = Vector2(7, 7)
+offset_right = 7.0
+offset_bottom = 7.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_om34a")
 script = ExtResource("1_hpefw")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 1
+theme_override_constants/margin_bottom = 1
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
@@ -28,5 +28,6 @@ layout_mode = 2
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(24, 26)
+position = Vector2(2.75, 2.75)
 shape = SubResource("RectangleShape2D_6fcs5")
+debug_color = Color(0.780392, 0.12549, 1, 0.345098)
