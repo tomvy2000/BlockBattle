@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8f442136ovt"]
+[gd_scene load_steps=8 format=3 uid="uid://b8f442136ovt"]
 
 [ext_resource type="Texture2D" uid="uid://etasfm708rts" path="res://_main/sprites/background.png" id="1_mwm7i"]
 [ext_resource type="PackedScene" uid="uid://dh5b1hw7vmffq" path="res://_main/scenes/board.tscn" id="1_wjdom"]
-[ext_resource type="PackedScene" uid="uid://cudgsbva3y37b" path="res://_main/scenes/item_piece.tscn" id="2_vprhu"]
+[ext_resource type="PackedScene" uid="uid://cfkxj6lwmnmcu" path="res://_main/scenes/item_piece.tscn" id="2_vprhu"]
 [ext_resource type="PackedScene" uid="uid://m7umt3p4j2mh" path="res://_main/scenes/player.tscn" id="3_3wh7u"]
 [ext_resource type="PackedScene" uid="uid://csgwh3y7xppeh" path="res://_main/scenes/enemy.tscn" id="4_ro6g4"]
+[ext_resource type="PackedScene" uid="uid://o8xx2axssoqw" path="res://_main/scenes/tile.tscn" id="6_pwht4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sn1h"]
 bg_color = Color(0.227451, 0.619608, 0.968627, 1)
@@ -17,6 +18,9 @@ texture = ExtResource("1_mwm7i")
 metadata/_edit_lock_ = true
 
 [node name="Gameplay" type="Node" parent="."]
+
+[node name="Board" parent="." instance=ExtResource("1_wjdom")]
+position = Vector2(98, 107)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -52,7 +56,6 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_6sn1h")
 
 [node name="Board" parent="CanvasLayer/HUD/PanelContainer/HBoxContainer" instance=ExtResource("1_wjdom")]
-layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
@@ -75,27 +78,14 @@ custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Board" parent="CanvasLayer" instance=ExtResource("1_wjdom")]
-custom_minimum_size = Vector2(20, 20)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-offset_left = -48.5
-offset_top = -50.0
-offset_right = 48.5
-grow_vertical = 0
-
-[node name="ItemPiece" parent="CanvasLayer" instance=ExtResource("2_vprhu")]
-offset_left = 27.0
-offset_top = 71.0
-offset_right = 27.0
-offset_bottom = 71.0
-width = 2
-height = 2
-
 [node name="Player" parent="." instance=ExtResource("3_3wh7u")]
 position = Vector2(65, 63)
 
 [node name="Enemy" parent="." instance=ExtResource("4_ro6g4")]
 position = Vector2(185, 62)
+
+[node name="Tile" parent="." instance=ExtResource("6_pwht4")]
+position = Vector2(100, 83)
+
+[node name="ItemPiece" parent="." instance=ExtResource("2_vprhu")]
+position = Vector2(158, 75)

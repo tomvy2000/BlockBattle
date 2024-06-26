@@ -38,28 +38,19 @@ theme_override_constants/v_separation = 7
 columns = 3
 
 [node name="PieceBlock" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
-layout_mode = 2
 
 [node name="PieceBlock2" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
-layout_mode = 2
 
 [node name="PieceBlock3" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
-layout_mode = 2
 
 [node name="PieceBlock4" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
-layout_mode = 2
 
 [node name="PieceBlock5" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
-layout_mode = 2
 
 [node name="PieceBlock6" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
-layout_mode = 2
 
 [node name="PieceBlock7" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
-layout_mode = 2
 
 [node name="PieceBlock8" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
-layout_mode = 2
 
 [node name="PieceBlock9" parent="MarginContainer/GridContainer" instance=ExtResource("2_uju0i")]
-layout_mode = 2

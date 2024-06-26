@@ -8,9 +8,10 @@ extends Control
 
 @onready var icon_container: PanelContainer = $IconContainer
 
-@onready var block_container = $PanelContainer2/BlockContainer
+@onready var block_container: Node = $BlockContainer
+
 const PIECE_BLOCK = preload("res://_main/scenes/piece_block.tscn")
-const BLOCK_SIZE = 7
+const BLOCK_SIZE = 8
 const BLOCK_SPACE = 0
 
 var active_blocks: Array[PieceBlock]
@@ -24,10 +25,10 @@ func _ready() -> void:
 		new_block.position = Vector2(s.x * BLOCK_SIZE + s.x * BLOCK_SPACE,\
 									 -s.y * BLOCK_SIZE - s.y * BLOCK_SPACE)
 		active_blocks.append(new_block)
-	texture.size = Vector2(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE,\
-								  height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)
-	icon_container.size = Vector2(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE,\
-								  height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)	
+	#texture.size = Vector2(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE,\
+								  #height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)
+	#icon_container.size = Vector2(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE,\
+								  #height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)	
 func _process(_delta: float) -> void:
 	if is_dragging:
 		global_position = get_global_mouse_position()

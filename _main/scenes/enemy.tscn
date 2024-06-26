@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=3 uid="uid://csgwh3y7xppeh"]
 
-[ext_resource type="Texture2D" uid="uid://bg8rctilxriop" path="res://_main/sprites/pig/Dead (34x28).png" id="1_t6ton"]
+[ext_resource type="Texture2D" uid="uid://cdi5i0gnaeexs" path="res://_main/sprites/pig/Idle (34x28).png" id="1_c6hrd"]
 [ext_resource type="Animation" uid="uid://but8jw3po4lt7" path="res://_main/animationas/pig/attack.res" id="2_jqj6h"]
 [ext_resource type="Animation" uid="uid://bucbdnw4yt3yl" path="res://_main/animationas/pig/die.res" id="3_6he6l"]
 [ext_resource type="Animation" uid="uid://vuy8tafiyi3e" path="res://_main/animationas/pig/hit.res" id="4_x0wdv"]
@@ -65,9 +65,9 @@ position = Vector2(3, 2.66667)
 shape = SubResource("RectangleShape2D_obwbl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_t6ton")
-hframes = 4
-frame = 3
+texture = ExtResource("1_c6hrd")
+hframes = 11
+frame = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -1,32 +1,33 @@
-extends PanelContainer
+extends Node2D
 
 @export var width: int = 5
 @export var height: int = 5
 
-@onready var board_grid: GridContainer = $MarginContainer/BoardGrid
 const TILE = preload("res://_main/scenes/tile.tscn")
+const TILE_SIZE = 8
+const TILE_SPACE = 0
 
 var tiles = []
 var matrix = []
 
 func _ready() -> void:
 	create_colored_matrix(height, width)
-	board_grid.columns = width
 	for i in range(width * height):
 		var tile_scene: Tile = TILE.instantiate()
-		board_grid.add_child(tile_scene)
-		match matrix[i]:
-			"red":
-				tile_scene.set_type(0)
-			"green":
-				tile_scene.set_type(1)
-			"blue":
-				tile_scene.set_type(2)
-			"yellow":
-				tile_scene.set_type(3)
+		add_child(tile_scene)
+		tile_scene.position = Vector2((i / width) * TILE_SIZE, (i % height) * TILE_SIZE)
+		#match matrix[i]:
+			#"red":
+				#tile_scene.set_type(0)
+			#"green":
+				#tile_scene.set_type(1)
+			#"blue":
+				#tile_scene.set_type(2)
+			#"yellow":
+				#tile_scene.set_type(3)
 				
 		#tile_scene.set_type(randi_range(0, 3))
-	tiles = board_grid.get_children()
+	tiles = get_children()
 	#set_corner_color()
 
 func init() -> void:
