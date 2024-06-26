@@ -8,7 +8,8 @@ extends Control
 
 @onready var icon_container: PanelContainer = $IconContainer
 
-@onready var block_container = $PanelContainer2/BlockContainer
+@onready var block_container: Control = $IconContainer/MarginContainer/BlockContainer
+
 const PIECE_BLOCK = preload("res://_main/scenes/piece_block.tscn")
 const BLOCK_SIZE = 40
 const BLOCK_SPACE = 7

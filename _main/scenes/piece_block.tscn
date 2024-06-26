@@ -6,7 +6,7 @@
 
 [node name="PieceBlock" type="ColorRect"]
 custom_minimum_size = Vector2(40, 40)
-mouse_filter = 1
+mouse_filter = 2
 script = ExtResource("1_s2g22")
 
 [node name="Area2D" type="Area2D" parent="."]

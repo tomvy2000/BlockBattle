@@ -10,15 +10,25 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="ItemPiece" type="Control"]
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_4kahl")
 shape = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, -1)])
 
 [node name="IconContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 47.0
-offset_bottom = 55.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -37.0
+offset_right = 17.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_n37vm")
 
@@ -33,16 +43,25 @@ theme_override_constants/margin_bottom = 2
 layout_mode = 2
 texture = ExtResource("3_d5qrm")
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_aregl")
-
-[node name="BlockContainer" type="Control" parent="PanelContainer2"]
+[node name="BlockContainer" type="Control" parent="IconContainer/MarginContainer"]
 visible = false
 layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -37.0
+offset_right = 23.0
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aregl")
 
 [connection signal="mouse_entered" from="IconContainer/MarginContainer/Icon" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="IconContainer/MarginContainer/Icon" to="." method="_on_mouse_exited"]

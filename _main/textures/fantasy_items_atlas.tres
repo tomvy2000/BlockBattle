@@ -5,4 +5,4 @@ load_path = "res://.godot/imported/RPG_Weapons.png-246040067714994bdb68db6280889
 
 [resource]
 atlas = SubResource("CompressedTexture2D_vuxj8")
-region = Rect2(44, 286, 43, 51)
+region = Rect2(123, 34, 30, 70)
