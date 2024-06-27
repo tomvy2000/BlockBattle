@@ -7,8 +7,7 @@ extends Control
 @export var height: int
 
 @onready var icon_container: PanelContainer = $IconContainer
-
-@onready var block_container: Control = $IconContainer/MarginContainer/BlockContainer
+@onready var block_container = %BlockContainer
 
 const PIECE_BLOCK = preload("res://_main/scenes/piece_block.tscn")
 const BLOCK_SIZE = 40
@@ -24,15 +23,20 @@ func _ready() -> void:
 		block_container.add_child(new_block)
 		new_block.position = Vector2(s.x * BLOCK_SIZE + s.x * BLOCK_SPACE,\
 									 -s.y * BLOCK_SIZE - s.y * BLOCK_SPACE)
+		
 		active_blocks.append(new_block)
 		
 	icon_container.size = Vector2(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE,\
-								  height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)	
+								  height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)
+	print(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE)
+	print(height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)
+
 func _process(_delta: float) -> void:
 	if is_dragging:
 		global_position = get_global_mouse_position()
 	
 func _gui_input(event: InputEvent) -> void:
+	print("haha")
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			is_dragging = true
@@ -40,19 +44,19 @@ func _gui_input(event: InputEvent) -> void:
 			for block in active_blocks:
 				if block.hovered_tile:
 					block.hovered_tile.change_state(Tile.STATE.EMPTY)
-				
+			
 		if not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			is_dragging = false
 			if can_place():
 				for block in active_blocks:
 					block.hovered_tile.change_state(Tile.STATE.TAKEN)
 					block.hovered_tile.reset_color()
-				snap_to(active_blocks[0].hovered_tile.global_position)
+				snap_to(active_blocks[0].hovered_tile)
 			else:
 				global_position = original_position
 				
 func _on_mouse_entered() -> void:
-	block_container.visible = true
+	block_container.visible = false
 	
 func _on_mouse_exited() -> void:
 	block_container.visible = false
@@ -63,7 +67,9 @@ func can_place() -> bool:
 			return false
 	return true
 	
-func snap_to(pos: Vector2):
+func snap_to(tile: Tile):
+	var pos = Vector2(tile.global_position.x + width * BLOCK_SIZE / 2,\
+					  tile.global_position.y + height * BLOCK_SIZE / 2)
 	global_position = pos
 		
 #func _get_drag_data(at_position: Vector2) -> Variant:

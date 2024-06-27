@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8f442136ovt"]
+[gd_scene load_steps=4 format=3 uid="uid://b8f442136ovt"]
 
 [ext_resource type="PackedScene" uid="uid://dh5b1hw7vmffq" path="res://_main/scenes/board.tscn" id="1_wjdom"]
 [ext_resource type="PackedScene" uid="uid://d0wpn7ufk6wbd" path="res://_main/scenes/item_piece.tscn" id="2_vprhu"]
+[ext_resource type="PackedScene" uid="uid://bp3n7wcdxyxq7" path="res://_main/scenes/item_pieces/item_01.tscn" id="3_fa7ih"]
 
 [node name="Main" type="Node2D"]
 
@@ -28,26 +29,17 @@ offset_top = -280.0
 offset_right = -7.0
 grow_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -524.0
-offset_top = -236.0
-offset_right = -24.0
-offset_bottom = -216.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/separation = 100
+[node name="ItemPiece2" parent="CanvasLayer" instance=ExtResource("2_vprhu")]
+offset_left = 960.0
+offset_top = 551.0
+offset_right = 960.0
+offset_bottom = 571.0
+mouse_filter = 1
+width = 1
+height = 2
 
-[node name="ItemPiece" parent="CanvasLayer/HUD/HBoxContainer" instance=ExtResource("2_vprhu")]
-layout_mode = 2
-
-[node name="ItemPiece2" parent="CanvasLayer/HUD/HBoxContainer" instance=ExtResource("2_vprhu")]
-layout_mode = 2
-
-[node name="ItemPiece3" parent="CanvasLayer/HUD/HBoxContainer" instance=ExtResource("2_vprhu")]
-layout_mode = 2
+[node name="ItemPiece" parent="CanvasLayer" instance=ExtResource("3_fa7ih")]
+offset_left = 1090.0
+offset_top = 548.0
+offset_right = 1090.0
+offset_bottom = 568.0
