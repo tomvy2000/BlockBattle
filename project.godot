@@ -15,10 +15,12 @@ run/main_scene="res://_main/scenes/main.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+BattleManager="*res://_main/scripts/battle_manager.gd"
+
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/window_width_override=1920
-window/size/window_height_override=1080
 window/stretch/mode="canvas_items"

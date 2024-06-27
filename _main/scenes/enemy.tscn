@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2thxoo4whyq6"]
+
+[ext_resource type="Texture2D" uid="uid://5toqxpi27ii2" path="res://icon.svg" id="1_5oj63"]
+[ext_resource type="Script" path="res://_main/scenes/enemy.gd" id="1_vue5q"]
+[ext_resource type="Texture2D" uid="uid://boipf2kkdrcdc" path="res://_main/sprites/shield (1).png" id="2_q6fug"]
+[ext_resource type="Script" path="res://_main/scripts/health_component.gd" id="4_j76rh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7s5jg"]
+size = Vector2(128, 128)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hknjo"]
+bg_color = Color(1, 0.333121, 0.353417, 1)
+
+[node name="Enemy" type="Area2D" node_paths=PackedStringArray("health_component")]
+script = ExtResource("1_vue5q")
+health_component = NodePath("HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7s5jg")
+
+[node name="CharacterSprite" type="Sprite2D" parent="."]
+modulate = Color(0.744754, 0.0601717, 2.88785e-07, 1)
+texture = ExtResource("1_5oj63")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = -92.0
+offset_top = 77.0
+offset_right = 93.0
+offset_bottom = 104.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_hknjo")
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="Shield" type="Sprite2D" parent="HealthBar"]
+position = Vector2(-15, 15)
+texture = ExtResource("2_q6fug")
+
+[node name="ShieldDisplay" type="Label" parent="HealthBar/Shield"]
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = 15.0
+text = "10"
+
+[node name="HealthDisplay" type="Label" parent="HealthBar"]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 2.0
+offset_right = 121.0
+offset_bottom = 25.0
+text = "50/100"
+
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("health_bar", "health_display", "shield_display")]
+script = ExtResource("4_j76rh")
+max_hp = 50.0
+initial_shield = 5.0
+health_bar = NodePath("../HealthBar")
+health_display = NodePath("../HealthBar/HealthDisplay")
+shield_display = NodePath("../HealthBar/Shield/ShieldDisplay")

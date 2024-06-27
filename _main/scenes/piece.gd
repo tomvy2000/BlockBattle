@@ -1,5 +1,7 @@
+class_name ItemPiece
 extends Control
 
+@export var item_data: ItemData
 @export var grid: Array[int] = []
 @export var texture: Texture
 @export var shape: Array[Vector2i]
@@ -16,6 +18,7 @@ const BLOCK_SPACE = 7
 var active_blocks: Array[PieceBlock]
 var is_dragging: bool = false
 var original_position: Vector2
+var is_placed: bool
 
 func _ready() -> void:
 	for s in shape:
@@ -28,15 +31,12 @@ func _ready() -> void:
 		
 	icon_container.size = Vector2(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE,\
 								  height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)
-	print(width * BLOCK_SIZE + (width - 1) * BLOCK_SPACE)
-	print(height * BLOCK_SIZE + (height - 1) * BLOCK_SPACE)
 
 func _process(_delta: float) -> void:
 	if is_dragging:
 		global_position = get_global_mouse_position()
 	
 func _gui_input(event: InputEvent) -> void:
-	print("haha")
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			is_dragging = true
@@ -52,6 +52,9 @@ func _gui_input(event: InputEvent) -> void:
 					block.hovered_tile.change_state(Tile.STATE.TAKEN)
 					block.hovered_tile.reset_color()
 				snap_to(active_blocks[0].hovered_tile)
+				if (not is_placed):
+					BattleManager.add_item_piece(self)
+					is_placed = true
 			else:
 				global_position = original_position
 				
