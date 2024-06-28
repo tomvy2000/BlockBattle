@@ -43,10 +43,10 @@ func set_color() -> void:
 func reset_color() -> void:
 	color_rect.color = color
 			
-func _on_area_entered(area: Area2D) -> void:
+func _on_area_entered(_area: Area2D) -> void:
 	if tile_state == STATE.EMPTY:
 		color_rect.color = Color.REBECCA_PURPLE
 	
-func _on_area_exited(area: Area2D) -> void:
+func _on_area_exited(_area: Area2D) -> void:
 	if tile_state == STATE.EMPTY:
 		color_rect.color = color

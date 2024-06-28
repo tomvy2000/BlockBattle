@@ -3,13 +3,16 @@ extends Area2D
 
 @export var health_component: HealthComponent
 
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var state_machine : AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+
 signal action_completed()
 
 func _ready() -> void:
-	var action = AttackAction.new(8)
-	print(action.attack)
+	pass
 	
 func attack(enemy: Enemy, damage: float) -> void:
+	state_machine.travel("attack")
 	enemy.health_component.decrease_health(damage)
 	
 func heal(amount: float) -> void:

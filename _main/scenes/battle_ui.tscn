@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2xm1ihcon0a6"]
+
+[ext_resource type="Script" path="res://_main/scenes/battle_ui.gd" id="1_um43u"]
+[ext_resource type="PackedScene" uid="uid://dh5b1hw7vmffq" path="res://_main/scenes/board.tscn" id="2_m6fs4"]
+
+[node name="BattleUI" type="Control" node_paths=PackedStringArray("ap_label", "end_turn_button", "item_container")]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -279.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_um43u")
+ap_label = NodePath("AP Display/AP Label")
+end_turn_button = NodePath("EndTurnButton")
+item_container = NodePath("ItemPieceContainer")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Board" parent="." instance=ExtResource("2_m6fs4")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = -168.0
+offset_top = -280.0
+offset_right = 112.0
+grow_vertical = 0
+
+[node name="ItemPieceContainer" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AP Display" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 158.0
+offset_top = -46.5
+offset_right = 296.0
+offset_bottom = 40.5
+grow_vertical = 2
+
+[node name="AP Label" type="Label" parent="AP Display"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "5/5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="EndTurnButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -322.0
+offset_top = -66.0
+offset_right = -188.0
+offset_bottom = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="EndTurnButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "End Turn"
+horizontal_alignment = 1
+vertical_alignment = 1

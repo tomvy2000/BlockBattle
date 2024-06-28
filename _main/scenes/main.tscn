@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8f442136ovt"]
+[gd_scene load_steps=9 format=3 uid="uid://b8f442136ovt"]
 
 [ext_resource type="Texture2D" uid="uid://bkvkdyc2hstak" path="res://_main/sprites/background_scaled_5x_pngcrushed.png" id="1_3bo0y"]
-[ext_resource type="PackedScene" uid="uid://dh5b1hw7vmffq" path="res://_main/scenes/board.tscn" id="1_wjdom"]
 [ext_resource type="PackedScene" uid="uid://bpxo1tfn32hu8" path="res://_main/scenes/item_pieces/item_01.tscn" id="3_fa7ih"]
+[ext_resource type="PackedScene" uid="uid://b2xm1ihcon0a6" path="res://_main/scenes/battle_ui.tscn" id="4_28mda"]
 [ext_resource type="PackedScene" uid="uid://cm8acdwyarrnv" path="res://_main/scenes/player.tscn" id="4_jlco8"]
 [ext_resource type="PackedScene" uid="uid://c2thxoo4whyq6" path="res://_main/scenes/enemy.tscn" id="5_07a1k"]
 [ext_resource type="PackedScene" uid="uid://bp3n7wcdxyxq7" path="res://_main/scenes/item_pieces/item_02.tscn" id="6_bjttu"]
 [ext_resource type="PackedScene" uid="uid://dprfir3yukuby" path="res://_main/scenes/item_pieces/item_03.tscn" id="7_hn6sb"]
+[ext_resource type="Script" path="res://_main/scripts/item_spawner.gd" id="8_j0826"]
 
 [node name="Main" type="Node2D"]
 
@@ -23,54 +24,10 @@ position = Vector2(967, 317)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HUD" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -279.0
-grow_horizontal = 2
-grow_vertical = 0
+[node name="BattleUI" parent="CanvasLayer" instance=ExtResource("4_28mda")]
+visible = false
 
-[node name="Panel" type="Panel" parent="CanvasLayer/HUD"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Board" parent="CanvasLayer/HUD" instance=ExtResource("1_wjdom")]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-offset_left = -168.0
-offset_top = -280.0
-offset_right = 112.0
-grow_vertical = 0
-
-[node name="ItemPieceContainer" type="Control" parent="CanvasLayer/HUD"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ItemPiece" parent="CanvasLayer/HUD/ItemPieceContainer" instance=ExtResource("3_fa7ih")]
-offset_left = 844.0
-offset_top = 118.0
-offset_right = 844.0
-offset_bottom = 138.0
-
-[node name="ItemPiece2" parent="CanvasLayer/HUD/ItemPieceContainer" instance=ExtResource("6_bjttu")]
-offset_left = 1012.0
-offset_top = 125.0
-offset_right = 1012.0
-offset_bottom = 145.0
-
-[node name="ItemPiece3" parent="CanvasLayer/HUD/ItemPieceContainer" instance=ExtResource("7_hn6sb")]
-offset_left = 1155.0
-offset_top = 114.0
-offset_right = 1155.0
-offset_bottom = 134.0
+[node name="ItemSpawner" type="Node" parent="."]
+script = ExtResource("8_j0826")
+item_pool = Array[PackedScene]([ExtResource("3_fa7ih"), ExtResource("6_bjttu"), ExtResource("7_hn6sb")])
+item_pos = Array[Vector2i]([Vector2i(844, 118), Vector2i(1000, 118), Vector2i(1155, 118)])

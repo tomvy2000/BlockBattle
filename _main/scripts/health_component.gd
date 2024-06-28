@@ -17,11 +17,6 @@ func _ready() -> void:
 	increase_health(max_hp)
 	increase_armor(initial_shield)
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.keycode == KEY_A:
-		if event.is_pressed():
-			BattleManager.activate_item_pieces()
-
 func decrease_health(value: float) -> void:
 	var unblocked_damage = shield - value
 	decrease_armor(value)

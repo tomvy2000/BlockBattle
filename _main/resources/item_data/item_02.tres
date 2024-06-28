@@ -8,4 +8,5 @@ name = "Broken Shield"
 attack = 0.0
 shield = 10.0
 heal = 0.0
+evade = 0
 type = 1

@@ -1,14 +1,69 @@
-[gd_scene load_steps=7 format=3 uid="uid://cm8acdwyarrnv"]
+[gd_scene load_steps=24 format=3 uid="uid://cm8acdwyarrnv"]
 
 [ext_resource type="Script" path="res://_main/scenes/player.gd" id="1_1c05j"]
-[ext_resource type="Texture2D" uid="uid://5toqxpi27ii2" path="res://icon.svg" id="1_f1s0j"]
 [ext_resource type="Texture2D" uid="uid://boipf2kkdrcdc" path="res://_main/sprites/shield (1).png" id="2_2s0l3"]
+[ext_resource type="Texture2D" uid="uid://61h2qoqtyc7b" path="res://_main/sprites/king/Idle (78x58).png" id="2_3xike"]
 [ext_resource type="Script" path="res://_main/scripts/health_component.gd" id="3_x0d7r"]
+[ext_resource type="Animation" uid="uid://dlms1incamv0f" path="res://_main/animationas/king/attack.res" id="5_fcj83"]
+[ext_resource type="Animation" uid="uid://bxjn0rufp61we" path="res://_main/animationas/king/die.res" id="6_gqeb4"]
+[ext_resource type="Animation" uid="uid://c87agsaup663k" path="res://_main/animationas/king/hit.res" id="7_a5b3o"]
+[ext_resource type="Animation" uid="uid://pq3j751j0s3h" path="res://_main/animationas/king/idle.res" id="8_c4jg0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7s5jg"]
-size = Vector2(128, 128)
+size = Vector2(72, 128)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hknjo"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i8l65"]
+_data = {
+"attack": ExtResource("5_fcj83"),
+"die": ExtResource("6_gqeb4"),
+"hit": ExtResource("7_a5b3o"),
+"idle": ExtResource("8_c4jg0")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xo3ns"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a6wrd"]
+animation = &"die"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h36ye"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f1e6f"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s64w5"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rm4vw"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o53n4"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_la2kd"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pvc5s"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kjrx7"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_abfjb"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_u44ye"]
+states/attack/node = SubResource("AnimationNodeAnimation_xo3ns")
+states/attack/position = Vector2(380, 230)
+states/die/node = SubResource("AnimationNodeAnimation_a6wrd")
+states/die/position = Vector2(575, 100)
+states/hit/node = SubResource("AnimationNodeAnimation_h36ye")
+states/hit/position = Vector2(575, 224)
+states/idle/node = SubResource("AnimationNodeAnimation_f1e6f")
+states/idle/position = Vector2(380, 99)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_s64w5"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_rm4vw"), "die", "End", SubResource("AnimationNodeStateMachineTransition_o53n4"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_la2kd"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_pvc5s"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_kjrx7"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_abfjb")]
+graph_offset = Vector2(-9, 33)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_426ft"]
 bg_color = Color(1, 0.333121, 0.353417, 1)
 
 [node name="Player" type="Area2D" node_paths=PackedStringArray("health_component")]
@@ -16,10 +71,14 @@ script = ExtResource("1_1c05j")
 health_component = NodePath("HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-28, 0)
 shape = SubResource("RectangleShape2D_7s5jg")
 
 [node name="CharacterSprite" type="Sprite2D" parent="."]
-texture = ExtResource("1_f1s0j")
+scale = Vector2(4, 4)
+texture = ExtResource("2_3xike")
+hframes = 11
+frame = 4
 
 [node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("health_bar", "health_display", "shield_display")]
 script = ExtResource("3_x0d7r")
@@ -29,31 +88,44 @@ health_bar = NodePath("../HealthBar")
 health_display = NodePath("../HealthBar/HealthDisplay")
 shield_display = NodePath("../HealthBar/Shield/ShieldDisplay")
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_i8l65")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_u44ye")
+anim_player = NodePath("../AnimationPlayer")
+
 [node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -92.0
-offset_top = 77.0
-offset_right = 93.0
-offset_bottom = 104.0
-theme_override_styles/fill = SubResource("StyleBoxFlat_hknjo")
+offset_left = -100.0
+offset_top = 73.0
+offset_right = 46.0
+offset_bottom = 91.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_426ft")
 max_value = 1.0
 value = 0.5
 show_percentage = false
 
 [node name="Shield" type="Sprite2D" parent="HealthBar"]
-position = Vector2(-15, 15)
+position = Vector2(-6, 9)
+scale = Vector2(0.664063, 0.664063)
 texture = ExtResource("2_2s0l3")
 
 [node name="ShieldDisplay" type="Label" parent="HealthBar/Shield"]
-offset_left = -10.0
-offset_top = -15.0
-offset_right = 10.0
+offset_left = -29.0
+offset_top = -20.0
+offset_right = 27.0
 offset_bottom = 15.0
+theme_override_font_sizes/font_size = 25
 text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HealthDisplay" type="Label" parent="HealthBar"]
 layout_mode = 0
-offset_left = 69.0
-offset_top = 2.0
-offset_right = 121.0
-offset_bottom = 25.0
+offset_left = 42.0
+offset_top = -3.0
+offset_right = 94.0
+offset_bottom = 20.0
 text = "50/100"
