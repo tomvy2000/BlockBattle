@@ -38,14 +38,14 @@ func _process(_delta: float) -> void:
 	
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT and BattleManager.action_point > 0:
 			is_dragging = true
 			original_position = global_position
 			for block in active_blocks:
 				if block.hovered_tile:
 					block.hovered_tile.change_state(Tile.STATE.EMPTY)
 			
-		if not event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		if not event.pressed and event.button_index == MOUSE_BUTTON_LEFT and is_dragging:
 			is_dragging = false
 			if can_place():
 				for block in active_blocks:
@@ -55,6 +55,7 @@ func _gui_input(event: InputEvent) -> void:
 				if (not is_placed):
 					BattleManager.add_item_piece(self)
 					is_placed = true
+					BattleManager.change_action_point(-1)
 			else:
 				global_position = original_position
 				

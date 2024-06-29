@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdd2e13c4i1e"]
+
+[ext_resource type="PackedScene" uid="uid://c2thxoo4whyq6" path="res://_main/scenes/enemy.tscn" id="1_cylk7"]
+
+[node name="NormalPig" instance=ExtResource("1_cylk7")]

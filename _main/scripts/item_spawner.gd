@@ -25,3 +25,8 @@ func clear_items() -> void:
 		if item is ItemPiece:
 			if not item.is_placed:
 				item.queue_free()
+				
+func new_turn() -> void:
+	for item in item_container.get_children():
+		item.queue_free()
+	spawn_items()

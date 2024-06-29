@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8f442136ovt"]
+[gd_scene load_steps=18 format=3 uid="uid://b8f442136ovt"]
 
 [ext_resource type="Texture2D" uid="uid://bkvkdyc2hstak" path="res://_main/sprites/background_scaled_5x_pngcrushed.png" id="1_3bo0y"]
 [ext_resource type="PackedScene" uid="uid://bpxo1tfn32hu8" path="res://_main/scenes/item_pieces/item_01.tscn" id="3_fa7ih"]
@@ -8,6 +8,32 @@
 [ext_resource type="PackedScene" uid="uid://bp3n7wcdxyxq7" path="res://_main/scenes/item_pieces/item_02.tscn" id="6_bjttu"]
 [ext_resource type="PackedScene" uid="uid://dprfir3yukuby" path="res://_main/scenes/item_pieces/item_03.tscn" id="7_hn6sb"]
 [ext_resource type="Script" path="res://_main/scripts/item_spawner.gd" id="8_j0826"]
+[ext_resource type="Script" path="res://_main/scripts/enemy_spawner.gd" id="9_oss5r"]
+[ext_resource type="PackedScene" uid="uid://cdd2e13c4i1e" path="res://_main/scenes/enemies/normal_pig.tscn" id="10_fajf4"]
+[ext_resource type="Script" path="res://_main/scripts/enemy_pool_data.gd" id="11_ql4xn"]
+[ext_resource type="Script" path="res://_main/scripts/enemy_spawn_plan_data.gd" id="12_ix0ry"]
+
+[sub_resource type="Resource" id="Resource_u3dbg"]
+script = ExtResource("11_ql4xn")
+ID = 0
+name = "Normal Pig"
+scene = ExtResource("10_fajf4")
+
+[sub_resource type="Resource" id="Resource_7gn8y"]
+script = ExtResource("12_ix0ry")
+enemies = Array[int]([0])
+
+[sub_resource type="Resource" id="Resource_jc22g"]
+script = ExtResource("12_ix0ry")
+enemies = Array[int]([0, 0])
+
+[sub_resource type="Resource" id="Resource_0cq1r"]
+script = ExtResource("12_ix0ry")
+enemies = Array[int]([0, 0, 0])
+
+[sub_resource type="Resource" id="Resource_y300y"]
+script = ExtResource("12_ix0ry")
+enemies = Array[int]([0, 0, 0])
 
 [node name="Main" type="Node2D"]
 
@@ -20,6 +46,7 @@ metadata/_edit_lock_ = true
 position = Vector2(294, 315)
 
 [node name="Enemy" parent="." instance=ExtResource("5_07a1k")]
+visible = false
 position = Vector2(967, 317)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -31,3 +58,18 @@ visible = false
 script = ExtResource("8_j0826")
 item_pool = Array[PackedScene]([ExtResource("3_fa7ih"), ExtResource("6_bjttu"), ExtResource("7_hn6sb")])
 item_pos = Array[Vector2i]([Vector2i(844, 118), Vector2i(1000, 118), Vector2i(1155, 118)])
+
+[node name="EnemySpawner" type="Node" parent="." node_paths=PackedStringArray("spawn_position")]
+script = ExtResource("9_oss5r")
+enemy_pool = Array[ExtResource("11_ql4xn")]([SubResource("Resource_u3dbg")])
+spawn_position = [NodePath("SpawnPositionAnchor2"), NodePath("SpawnPositionAnchor"), NodePath("SpawnPositionAnchor3")]
+enemies = Array[ExtResource("12_ix0ry")]([SubResource("Resource_7gn8y"), SubResource("Resource_jc22g"), SubResource("Resource_0cq1r"), SubResource("Resource_y300y")])
+
+[node name="SpawnPositionAnchor" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(772, 371)
+
+[node name="SpawnPositionAnchor2" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(980, 372)
+
+[node name="SpawnPositionAnchor3" type="Marker2D" parent="EnemySpawner"]
+position = Vector2(1186, 372)

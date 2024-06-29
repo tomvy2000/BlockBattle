@@ -1,13 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://c2thxoo4whyq6"]
+[gd_scene load_steps=28 format=3 uid="uid://c2thxoo4whyq6"]
 
 [ext_resource type="Script" path="res://_main/scenes/enemy.gd" id="1_vue5q"]
 [ext_resource type="Texture2D" uid="uid://cdi5i0gnaeexs" path="res://_main/sprites/pig/Idle (34x28).png" id="2_pw68b"]
 [ext_resource type="Texture2D" uid="uid://boipf2kkdrcdc" path="res://_main/sprites/shield (1).png" id="2_q6fug"]
+[ext_resource type="Texture2D" uid="uid://cic70e47wghmy" path="res://_main/sprites/heart.png" id="4_i5ls1"]
 [ext_resource type="Script" path="res://_main/scripts/health_component.gd" id="4_j76rh"]
 [ext_resource type="Animation" uid="uid://but8jw3po4lt7" path="res://_main/animationas/pig/attack.res" id="5_mjfoq"]
 [ext_resource type="Animation" uid="uid://bucbdnw4yt3yl" path="res://_main/animationas/pig/die.res" id="6_4k48m"]
 [ext_resource type="Animation" uid="uid://vuy8tafiyi3e" path="res://_main/animationas/pig/hit.res" id="7_dwbpe"]
 [ext_resource type="Animation" uid="uid://bj880nwk1xgj5" path="res://_main/animationas/pig/idle.res" id="8_mip6o"]
+[ext_resource type="Texture2D" uid="uid://cjuar7a00pi20" path="res://_main/sprites/sword.png" id="9_h58je"]
+[ext_resource type="Texture2D" uid="uid://dk5wfdhkm8pm4" path="res://_main/sprites/down.png" id="11_dscqx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7s5jg"]
 size = Vector2(67, 74)
@@ -41,16 +44,19 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bqic6"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cp1aq"]
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vdiq2"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ykl0u"]
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cdent"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_npfne"]
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bgf7f"]
@@ -64,25 +70,35 @@ states/idle/node = SubResource("AnimationNodeAnimation_mykoa")
 states/idle/position = Vector2(346, 101)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_0bg3l"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_bqic6"), "die", "End", SubResource("AnimationNodeStateMachineTransition_cp1aq"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_vdiq2"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ykl0u"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_cdent"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_npfne")]
 
-[node name="Enemy" type="Area2D" node_paths=PackedStringArray("health_component")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7g2j"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="Enemy" type="Area2D" node_paths=PackedStringArray("health_component", "action_label", "icon", "indicator")]
 script = ExtResource("1_vue5q")
 health_component = NodePath("HealthComponent")
+attack_action_icon = ExtResource("9_h58je")
+shield_action_icon = ExtResource("2_q6fug")
+heal_action_icon = ExtResource("4_i5ls1")
+action_label = NodePath("PanelContainer/HBoxContainer/Label")
+icon = NodePath("PanelContainer/HBoxContainer/TextureRect")
+indicator = NodePath("Indicator")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(12.5, 19)
+position = Vector2(-1.5, -37)
 shape = SubResource("RectangleShape2D_7s5jg")
 
 [node name="CharacterSprite" type="Sprite2D" parent="."]
+position = Vector2(-14, -56)
 scale = Vector2(4, 4)
 texture = ExtResource("2_pw68b")
 hframes = 11
-frame = 1
+frame = 9
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-offset_left = -53.0
-offset_top = 65.0
-offset_right = 93.0
-offset_bottom = 83.0
+offset_left = -67.0
+offset_top = 9.0
+offset_right = 79.0
+offset_bottom = 27.0
 theme_override_styles/fill = SubResource("StyleBoxFlat_hknjo")
 max_value = 1.0
 value = 0.5
@@ -111,13 +127,14 @@ offset_right = 94.0
 offset_bottom = 20.0
 text = "50/100"
 
-[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("health_bar", "health_display", "shield_display")]
+[node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("health_bar", "health_display", "shield_display", "shield_icon")]
 script = ExtResource("4_j76rh")
 max_hp = 50.0
 initial_shield = 5.0
 health_bar = NodePath("../HealthBar")
 health_display = NodePath("../HealthBar/HealthDisplay")
 shield_display = NodePath("../HealthBar/Shield/ShieldDisplay")
+shield_icon = NodePath("../HealthBar/Shield")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -127,3 +144,33 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_bgf7f")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_left = -31.0
+offset_top = -101.0
+offset_right = 25.0
+offset_bottom = -78.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_o7g2j")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+texture = ExtResource("9_h58je")
+expand_mode = 1
+
+[node name="Indicator" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-3, -123)
+texture = ExtResource("11_dscqx")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

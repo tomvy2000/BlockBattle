@@ -1,9 +1,13 @@
+class_name Board
 extends PanelContainer
 
 @export var width: int = 5
 @export var height: int = 5
 
 @onready var board_grid: GridContainer = $MarginContainer/BoardGrid
+
+signal board_filled()
+
 const TILE = preload("res://_main/scenes/tile.tscn")
 
 var tiles = []
@@ -29,16 +33,20 @@ func _ready() -> void:
 	tiles = board_grid.get_children()
 	#set_corner_color()
 
-func init() -> void:
-	var matrix: Array[String] = []
+func refill_board() -> void:
+	create_colored_matrix(height, width)
 	for i in range(width * height):
-		matrix.append("")
-	
-	## Set corner color
-	matrix[0] = "red"
-	matrix[-1] = "yellow"
-	matrix[width - 1] = "green"
-	matrix[width * height - width] = "blue"
+		tiles[i].change_state(Tile.STATE.EMPTY)
+		match matrix[i]:
+			"red":
+				tiles[i].set_type(0)
+			"green":
+				tiles[i].set_type(1)
+			"blue":
+				tiles[i].set_type(2)
+			"yellow":
+				tiles[i].set_type(3)
+	board_filled.emit()
 	
 func set_corner_color() -> void:
 	tiles[0].set_type(Tile.TYPE.ATTACK) #upper-left corner
@@ -48,6 +56,7 @@ func set_corner_color() -> void:
 	
 func create_colored_matrix(rows: int, cols: int) -> Array:
 	# Initialize the matrix as a 1D array with empty values
+	matrix.clear()
 	for i in range(rows * cols):
 		matrix.append('')
 	
@@ -70,7 +79,7 @@ func create_colored_matrix(rows: int, cols: int) -> Array:
 	# Spread colors from the corners with a limited area
 	var colored = 0
 	for index in corner_colors:
-		var color_limits = randi_range(2, 6)
+		var color_limits = randi_range(3, 8)
 		if index == rows * cols - 1:
 			color_limits = rows * cols - colored
 		colored += color_limits

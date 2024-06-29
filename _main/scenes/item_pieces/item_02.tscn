@@ -23,6 +23,3 @@ offset_bottom = 18.0
 
 [node name="Icon" parent="IconContainer/MarginContainer" index="0"]
 texture = SubResource("AtlasTexture_7vpqe")
-
-[node name="BlockContainer" parent="PanelContainer2" index="0"]
-visible = true
