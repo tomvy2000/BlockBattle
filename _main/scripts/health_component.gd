@@ -38,7 +38,7 @@ func increase_health(value: float) -> void:
 	hp += value
 	if hp >= max_hp:
 		hp = max_hp
-	health_bar.value = hp / max_hp * 100
+	health_bar.value = hp / max_hp
 	health_display.text = "%s/%s" % [hp, max_hp]
 	
 func decrease_armor(value: float) -> void:

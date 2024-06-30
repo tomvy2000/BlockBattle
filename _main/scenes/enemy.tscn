@@ -92,7 +92,7 @@ position = Vector2(-14, -56)
 scale = Vector2(4, 4)
 texture = ExtResource("2_pw68b")
 hframes = 11
-frame = 9
+frame = 8
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -67.0

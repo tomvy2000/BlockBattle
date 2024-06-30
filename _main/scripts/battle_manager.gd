@@ -19,6 +19,8 @@ var max_action_point = 5
 ## Current level
 var level = 1
 
+var is_enemy_turn: bool
+
 var current_enemy: Enemy:
 	set(value):
 		if current_enemy != null:
@@ -36,16 +38,17 @@ func _ready() -> void:
 	board = battle_ui.board
 	
 	player = get_tree().root.get_node("Main/Player")
-	
+	enemy_spawner = get_tree().root.get_node("Main/EnemySpawner")
 	item_spawner = get_tree().root.get_node("Main/ItemSpawner")
 	item_spawner.item_container = battle_ui.item_container
-	enemy_spawner = get_tree().root.get_node("Main/EnemySpawner")
-	enemy_spawner.viewport_size = get_viewport().size
-	enemy_spawner.spawn(2)
-	current_enemy = alive_enemies[0]
-	
+
 	new_turn_began.connect(item_spawner.new_turn)
 	new_turn_began.connect(player.new_turn)
+	
+	enemy_spawner.spawn(2)
+	current_enemy = alive_enemies[0]
+	for enemy in alive_enemies:
+		new_turn_began.connect(enemy.new_turn)
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.keycode == KEY_A:
@@ -56,10 +59,13 @@ func activate_item_pieces() -> void:
 	var attack = 0
 	var heal = 0
 	var shield = 0
+	var aoe_attack: bool = false
+	var aoe_damage: float = 0
 	for piece in item_pieces:
-		attack += piece.item_data.attack
+		attack += piece.item_data.attack if piece.item_data.type == ItemData.ItemType.WEAPON else 0
 		heal += piece.item_data.heal
 		shield += piece.item_data.shield
+		aoe_damage += piece.item_data.attack if piece.item_data.type == ItemData.ItemType.SKILL else 0
 		for block in piece.active_blocks:
 			var tile = block.hovered_tile
 			if piece.item_data.type == ItemData.ItemType.WEAPON and tile.tile_type == Tile.TYPE.ATTACK:
@@ -68,9 +74,15 @@ func activate_item_pieces() -> void:
 				shield += 5
 			elif piece.item_data.type == ItemData.ItemType.HEAL and tile.tile_type == Tile.TYPE.HEAL:
 				heal += 5
-	player.attack(current_enemy, attack)
+			elif piece.item_data.type == ItemData.ItemType.SKILL and tile.tile_type == Tile.TYPE.EVADE:
+				aoe_damage += 5
+	if attack > 0:
+		player.attack(current_enemy, attack)
+	if aoe_damage > 0:
+		player.attack_aoe(alive_enemies, aoe_damage)
 	player.heal(heal)
 	player.shield_up(shield)
+	
 	
 	
 func end_turn() -> void:
@@ -92,8 +104,10 @@ func new_turn() -> void:
 	new_turn_began.emit()
 	
 func play_enemy_turn() -> void:
+	is_enemy_turn = true
 	for enemy in alive_enemies:
 		await enemy.play_turn(player)
+	is_enemy_turn = false
 
 func add_item_piece(item_piece: ItemPiece) -> void:
 	item_pieces.append(item_piece)

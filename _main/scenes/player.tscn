@@ -80,7 +80,7 @@ shape = SubResource("RectangleShape2D_7s5jg")
 scale = Vector2(4, 4)
 texture = ExtResource("2_3xike")
 hframes = 11
-frame = 4
+frame = 9
 
 [node name="HealthComponent" type="Node" parent="." node_paths=PackedStringArray("health_bar", "health_display", "shield_display", "shield_icon")]
 script = ExtResource("3_x0d7r")

@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_y1t02")
-name = "Ninja Boots"
-attack = 0.0
+name = "Blood Spear"
+attack = 10.0
 shield = 0.0
 heal = 0.0
-evade = 1
+evade = 0
 type = 3

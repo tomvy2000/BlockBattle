@@ -2,7 +2,6 @@ class_name ItemPiece
 extends Control
 
 @export var item_data: ItemData
-@export var grid: Array[int] = []
 @export var texture: Texture
 @export var shape: Array[Vector2i]
 @export var width: int
@@ -37,7 +36,7 @@ func _process(_delta: float) -> void:
 		global_position = get_global_mouse_position()
 	
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and not BattleManager.is_enemy_turn:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT and BattleManager.action_point > 0:
 			is_dragging = true
 			original_position = global_position

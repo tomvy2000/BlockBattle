@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b8f442136ovt"]
+[gd_scene load_steps=19 format=3 uid="uid://b8f442136ovt"]
 
 [ext_resource type="Texture2D" uid="uid://bkvkdyc2hstak" path="res://_main/sprites/background_scaled_5x_pngcrushed.png" id="1_3bo0y"]
 [ext_resource type="PackedScene" uid="uid://bpxo1tfn32hu8" path="res://_main/scenes/item_pieces/item_01.tscn" id="3_fa7ih"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bp3n7wcdxyxq7" path="res://_main/scenes/item_pieces/item_02.tscn" id="6_bjttu"]
 [ext_resource type="PackedScene" uid="uid://dprfir3yukuby" path="res://_main/scenes/item_pieces/item_03.tscn" id="7_hn6sb"]
 [ext_resource type="Script" path="res://_main/scripts/item_spawner.gd" id="8_j0826"]
+[ext_resource type="PackedScene" uid="uid://dafa3ps2fi4dc" path="res://_main/scenes/item_pieces/item_04.tscn" id="9_4a2mo"]
 [ext_resource type="Script" path="res://_main/scripts/enemy_spawner.gd" id="9_oss5r"]
 [ext_resource type="PackedScene" uid="uid://cdd2e13c4i1e" path="res://_main/scenes/enemies/normal_pig.tscn" id="10_fajf4"]
 [ext_resource type="Script" path="res://_main/scripts/enemy_pool_data.gd" id="11_ql4xn"]
@@ -56,7 +57,7 @@ visible = false
 
 [node name="ItemSpawner" type="Node" parent="."]
 script = ExtResource("8_j0826")
-item_pool = Array[PackedScene]([ExtResource("3_fa7ih"), ExtResource("6_bjttu"), ExtResource("7_hn6sb")])
+item_pool = Array[PackedScene]([ExtResource("3_fa7ih"), ExtResource("6_bjttu"), ExtResource("7_hn6sb"), ExtResource("9_4a2mo")])
 item_pos = Array[Vector2i]([Vector2i(844, 118), Vector2i(1000, 118), Vector2i(1155, 118)])
 
 [node name="EnemySpawner" type="Node" parent="." node_paths=PackedStringArray("spawn_position")]

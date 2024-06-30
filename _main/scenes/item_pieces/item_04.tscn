@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dafa3ps2fi4dc"]
+
+[ext_resource type="PackedScene" uid="uid://d0wpn7ufk6wbd" path="res://_main/scenes/item_piece.tscn" id="1_k15t3"]
+[ext_resource type="Resource" uid="uid://dx1n3f47xp2dj" path="res://_main/resources/item_data/item_04.tres" id="2_6hkxs"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vuxj8"]
+load_path = "res://.godot/imported/RPG_Weapons.png-246040067714994bdb68db6280889619.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y57cu"]
+atlas = SubResource("CompressedTexture2D_vuxj8")
+region = Rect2(480, 277, 69, 67)
+
+[node name="ItemPiece" instance=ExtResource("1_k15t3")]
+item_data = ExtResource("2_6hkxs")
+shape = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(1, -1)])
+width = 2
+height = 2
+
+[node name="IconContainer" parent="." index="0"]
+offset_left = -31.0
+offset_right = 42.0
+
+[node name="Icon" parent="IconContainer/MarginContainer" index="0"]
+texture = SubResource("AtlasTexture_y57cu")
