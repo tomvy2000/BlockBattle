@@ -45,7 +45,7 @@ func _ready() -> void:
 	new_turn_began.connect(item_spawner.new_turn)
 	new_turn_began.connect(player.new_turn)
 	
-	enemy_spawner.spawn(2)
+	enemy_spawner.spawn(3)
 	current_enemy = alive_enemies[0]
 	for enemy in alive_enemies:
 		new_turn_began.connect(enemy.new_turn)

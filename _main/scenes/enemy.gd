@@ -2,6 +2,7 @@ class_name Enemy
 extends Area2D
 
 @export var health_component: HealthComponent
+@export var stats: EnemyStats
 
 @export_category("Display")
 @export var attack_action_icon: CompressedTexture2D
@@ -18,9 +19,6 @@ extends Area2D
 signal receive_damage()
 signal dead(enemy: Enemy)
 
-var attack_damage: float = 10
-var heal_amount: float = 5
-var shield_up_amount: float = 5
 
 var next_action: String
 
@@ -36,11 +34,11 @@ func play_turn(target: Player) -> void:
 	
 	match next_action:
 		"attack":
-			attack(target, attack_damage)
+			attack(target, stats.attack)
 		"heal":
-			heal(heal_amount)
+			heal(stats.heal_amount)
 		"shield_up":
-			shield_up(shield_up_amount)
+			shield_up(stats.shield_up_amount)
 			
 func new_turn() -> void:
 	set_next_action()
@@ -51,13 +49,14 @@ func set_next_action() -> void:
 	next_action = actions.pick_random()
 	match next_action:
 		"attack":
-			display_next_action(attack_action_icon, attack_damage)
+			print(name)
+			display_next_action(attack_action_icon, stats.attack)
 			action_label.modulate = Color.RED
 		"heal":
-			display_next_action(heal_action_icon, heal_amount)
+			display_next_action(heal_action_icon, stats.heal_amount)
 			action_label.modulate = Color.GREEN
 		"shield_up":
-			display_next_action(shield_action_icon, shield_up_amount)
+			display_next_action(shield_action_icon, stats.shield_up_amount)
 			action_label.modulate = Color.BLUE
 			
 func display_next_action(tex: CompressedTexture2D, value: float) -> void:
@@ -82,7 +81,7 @@ func shield_up(amount: float) -> void:
 func die() -> void:
 	dead.emit(self)
 	
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
 			BattleManager.current_enemy = self

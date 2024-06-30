@@ -1,0 +1,214 @@
+[gd_scene load_steps=13 format=3 uid="uid://d28wjusgp32s2"]
+
+[ext_resource type="PackedScene" uid="uid://c2thxoo4whyq6" path="res://_main/scenes/enemy.tscn" id="1_66o5g"]
+[ext_resource type="Texture2D" uid="uid://b35tt1xjjunk4" path="res://_main/sprites/king_pig/Dead (38x28).png" id="2_e60a6"]
+[ext_resource type="Script" path="res://_main/scripts/enemy_stats.gd" id="2_xq1w6"]
+[ext_resource type="Texture2D" uid="uid://du3mncwn37q5g" path="res://_main/sprites/king_pig/Attack (38x28).png" id="3_fe4oc"]
+[ext_resource type="Texture2D" uid="uid://cgbtakm5posd" path="res://_main/sprites/king_pig/Idle (38x28).png" id="3_jmrvu"]
+[ext_resource type="Texture2D" uid="uid://c7fomnpy2m4hu" path="res://_main/sprites/king_pig/Hit (38x28).png" id="3_rgbya"]
+
+[sub_resource type="Resource" id="Resource_t8e6d"]
+script = ExtResource("2_xq1w6")
+attack = 20.0
+max_health = 200.0
+heal_amount = 50.0
+shield_up_amount = 50.0
+
+[sub_resource type="Animation" id="Animation_1v2pe"]
+resource_name = "attack"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_fe4oc")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4]
+}
+
+[sub_resource type="Animation" id="Animation_u73p2"]
+resource_name = "die"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_e60a6")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_1nwdm"]
+resource_name = "hit"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_rgbya")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="Animation" id="Animation_1bvgs"]
+resource_name = "idle"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_jmrvu")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.0001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [12, 12]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j4cti"]
+_data = {
+"attack": SubResource("Animation_1v2pe"),
+"die": SubResource("Animation_u73p2"),
+"hit": SubResource("Animation_1nwdm"),
+"idle": SubResource("Animation_1bvgs")
+}
+
+[node name="King Pig" instance=ExtResource("1_66o5g")]
+stats = SubResource("Resource_t8e6d")
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(2.5, -60.5)
+
+[node name="CharacterSprite" parent="." index="1"]
+position = Vector2(-5, -84)
+scale = Vector2(6, 6)
+texture = ExtResource("3_jmrvu")
+hframes = 12
+frame = 9
+
+[node name="HealthComponent" parent="." index="3"]
+max_hp = 200.0
+initial_shield = 50.0
+
+[node name="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_j4cti")
+}
+
+[node name="PanelContainer" parent="." index="6"]
+offset_top = -156.0
+offset_bottom = -133.0
+
+[node name="Indicator" parent="." index="7"]
+visible = true
+position = Vector2(-1, -200)

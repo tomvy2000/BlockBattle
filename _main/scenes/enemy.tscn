@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dk5wfdhkm8pm4" path="res://_main/sprites/down.png" id="11_dscqx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7s5jg"]
-size = Vector2(67, 74)
+size = Vector2(109, 121)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hknjo"]
 bg_color = Color(1, 0.333121, 0.353417, 1)
@@ -92,7 +92,7 @@ position = Vector2(-14, -56)
 scale = Vector2(4, 4)
 texture = ExtResource("2_pw68b")
 hframes = 11
-frame = 8
+frame = 2
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -67.0
