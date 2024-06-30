@@ -14,6 +14,7 @@ extends Area2D
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 signal receive_damage()
@@ -27,7 +28,7 @@ func _ready() -> void:
 	receive_damage.connect(func(): state_machine.travel("hit"))
 	health_component.health_depleted.connect(die)
 	
-	new_turn()
+	#new_turn()
 
 func play_turn(target: Player) -> void:
 	await get_tree().create_timer(1).timeout
@@ -79,6 +80,8 @@ func shield_up(amount: float) -> void:
 	print("enemy shield up")
 	
 func die() -> void:
+	state_machine.travel("die")
+	#await animation_tree.animation_finished
 	dead.emit(self)
 	
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

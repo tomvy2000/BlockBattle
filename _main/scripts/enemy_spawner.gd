@@ -23,6 +23,3 @@ func spawn_enemy(id: int, position: Vector2) -> void:
 	enemy.position = position
 	BattleManager.add_enemy(enemy)
 	
-func calculate_spawn_position(num_spawn: int, index: int = 0) -> Vector2:
-	
-	return Vector2.ZERO

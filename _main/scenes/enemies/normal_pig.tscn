@@ -12,6 +12,3 @@ shield_up_amount = 5.0
 
 [node name="NormalPig" instance=ExtResource("1_cylk7")]
 stats = SubResource("Resource_lsi13")
-
-[node name="CharacterSprite" parent="." index="1"]
-frame = 3

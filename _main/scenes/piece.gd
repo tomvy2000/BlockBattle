@@ -55,6 +55,7 @@ func _gui_input(event: InputEvent) -> void:
 					BattleManager.add_item_piece(self)
 					is_placed = true
 					BattleManager.change_action_point(-1)
+					BattleManager.item_spawner.new_turn()
 			else:
 				global_position = original_position
 				

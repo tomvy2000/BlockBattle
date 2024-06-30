@@ -6,8 +6,8 @@ extends Node
 
 @export var item_pos: Array[Vector2i]
 
-func _ready() -> void:
-	spawn_items()
+#func _ready() -> void:
+	#spawn_items()
 
 func spawn_items() -> void:
 	if item_pool.size() <= 0:
@@ -27,6 +27,7 @@ func clear_items() -> void:
 				item.queue_free()
 				
 func new_turn() -> void:
-	for item in item_container.get_children():
-		item.queue_free()
+	for item: ItemPiece in item_container.get_children():
+		if not item.is_placed:
+			item.queue_free()
 	spawn_items()

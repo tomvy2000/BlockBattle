@@ -2,9 +2,12 @@ class_name Player
 extends Area2D
 
 @export var health_component: HealthComponent
+@export var game_over: Control
+@export var victory: Control
 
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 signal action_completed()
 signal receive_damage()
@@ -39,4 +42,5 @@ func new_turn() -> void:
 	pass
 	
 func die() -> void:
+	game_over.visible = true
 	dead.emit()

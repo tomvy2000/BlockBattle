@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://_main/scenes/battle_ui.gd" id="1_um43u"]
 [ext_resource type="PackedScene" uid="uid://dh5b1hw7vmffq" path="res://_main/scenes/board.tscn" id="2_m6fs4"]
 
-[node name="BattleUI" type="Control" node_paths=PackedStringArray("board", "ap_label", "end_turn_button", "item_container")]
+[node name="BattleUI" type="Control" node_paths=PackedStringArray("board", "ap_label", "end_turn_button", "item_container", "level_label")]
 layout_mode = 3
 anchors_preset = 12
 anchor_top = 1.0
@@ -17,6 +17,7 @@ board = NodePath("Board")
 ap_label = NodePath("AP Display/VBoxContainer/AP Label")
 end_turn_button = NodePath("EndTurnButton")
 item_container = NodePath("ItemPieceContainer")
+level_label = NodePath("Room")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

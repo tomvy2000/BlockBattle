@@ -6,6 +6,7 @@ extends Node
 var enemy_spawner: EnemySpawner
 
 signal new_turn_began()
+signal level_completed()
 
 var battle_ui_scene = preload("res://_main/scenes/battle_ui.tscn")
 var battle_ui: BattleUI
@@ -13,13 +14,18 @@ var battle_ui: BattleUI
 var item_pieces: Array[ItemPiece] = []
 var alive_enemies: Array[Enemy] = []
 ## Action points received each turn
-var action_point = 5
+var action_point = 3
 ## Max action points each turn, can be increased
-var max_action_point = 5
+var max_action_point = 3
 ## Current level
-var level = 1
+var level = 0:
+	set(value):
+		level = value
+		if level > 4:
+			level = 4
 
 var is_enemy_turn: bool
+var is_victory: bool
 
 var current_enemy: Enemy:
 	set(value):
@@ -45,10 +51,12 @@ func _ready() -> void:
 	new_turn_began.connect(item_spawner.new_turn)
 	new_turn_began.connect(player.new_turn)
 	
-	enemy_spawner.spawn(3)
+	enemy_spawner.spawn(0)
 	current_enemy = alive_enemies[0]
 	for enemy in alive_enemies:
 		new_turn_began.connect(enemy.new_turn)
+	await board.ready
+	await new_turn()
 	
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.keycode == KEY_A:
@@ -93,11 +101,13 @@ func end_turn() -> void:
 	item_pieces.clear()
 	await play_enemy_turn()
 	await get_tree().create_timer(1).timeout
-	await new_turn()
+	if not is_victory:
+		await new_turn()
 	
 	
 func new_turn() -> void:
 	action_point = max_action_point
+	battle_ui.update_ap_label()
 	battle_ui.end_turn_button.visible = true
 	await board.refill_board()
 	
@@ -129,4 +139,23 @@ func remove_enemy(enemy: Enemy) -> void:
 	if enemy == current_enemy and alive_enemies.size() > 0:
 		current_enemy = alive_enemies[0]
 	enemy.queue_free()
+	if alive_enemies.size() == 0:
+		#level_completed.emit()
+		if not level == 3:
+			new_level()
+		else:
+			is_victory = true
+			player.victory.visible = true
+			
+		
+func new_level() -> void:
+	await get_tree().create_timer(2).timeout
+	level += 1
+	enemy_spawner.spawn(level)
+	current_enemy = alive_enemies[0]
+	for enemy in alive_enemies:
+		new_turn_began.connect(enemy.new_turn)
+		
+	battle_ui.update_level_label()
+	await new_turn()
 

@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://bkvkdyc2hstak" path="res://_main/sprites/background_scaled_5x_pngcrushed.png" id="1_3bo0y"]
 [ext_resource type="PackedScene" uid="uid://bpxo1tfn32hu8" path="res://_main/scenes/item_pieces/item_01.tscn" id="3_fa7ih"]
-[ext_resource type="PackedScene" uid="uid://b2xm1ihcon0a6" path="res://_main/scenes/battle_ui.tscn" id="4_28mda"]
 [ext_resource type="PackedScene" uid="uid://cm8acdwyarrnv" path="res://_main/scenes/player.tscn" id="4_jlco8"]
 [ext_resource type="PackedScene" uid="uid://bp3n7wcdxyxq7" path="res://_main/scenes/item_pieces/item_02.tscn" id="6_bjttu"]
 [ext_resource type="PackedScene" uid="uid://dprfir3yukuby" path="res://_main/scenes/item_pieces/item_03.tscn" id="7_hn6sb"]
@@ -13,6 +12,9 @@
 [ext_resource type="Script" path="res://_main/scripts/enemy_pool_data.gd" id="11_ql4xn"]
 [ext_resource type="Script" path="res://_main/scripts/enemy_spawn_plan_data.gd" id="12_ix0ry"]
 [ext_resource type="PackedScene" uid="uid://d28wjusgp32s2" path="res://_main/scenes/enemies/king_pig.tscn" id="13_g2w7h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hfxo"]
+bg_color = Color(0.0745098, 0.0745098, 0.0745098, 0.956863)
 
 [sub_resource type="Resource" id="Resource_u3dbg"]
 script = ExtResource("11_ql4xn")
@@ -49,13 +51,65 @@ texture = ExtResource("1_3bo0y")
 centered = false
 metadata/_edit_lock_ = true
 
-[node name="Player" parent="." instance=ExtResource("4_jlco8")]
+[node name="Player" parent="." node_paths=PackedStringArray("game_over", "victory") instance=ExtResource("4_jlco8")]
 position = Vector2(294, 315)
+game_over = NodePath("../CanvasLayer2/GameOver")
+victory = NodePath("../CanvasLayer2/Victory")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="BattleUI" parent="CanvasLayer" instance=ExtResource("4_28mda")]
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="GameOver" type="Panel" parent="CanvasLayer2"]
 visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7hfxo")
+
+[node name="Label" type="Label" parent="CanvasLayer2/GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "GAME OVER"
+
+[node name="Victory" type="Panel" parent="CanvasLayer2"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7hfxo")
+
+[node name="Label" type="Label" parent="CanvasLayer2/Victory"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "VICTORY
+"
 
 [node name="ItemSpawner" type="Node" parent="."]
 script = ExtResource("8_j0826")

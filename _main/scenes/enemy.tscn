@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://c2thxoo4whyq6"]
+[gd_scene load_steps=30 format=3 uid="uid://c2thxoo4whyq6"]
 
 [ext_resource type="Script" path="res://_main/scenes/enemy.gd" id="1_vue5q"]
 [ext_resource type="Texture2D" uid="uid://cdi5i0gnaeexs" path="res://_main/sprites/pig/Idle (34x28).png" id="2_pw68b"]
@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://cic70e47wghmy" path="res://_main/sprites/heart.png" id="4_i5ls1"]
 [ext_resource type="Script" path="res://_main/scripts/health_component.gd" id="4_j76rh"]
 [ext_resource type="Animation" uid="uid://but8jw3po4lt7" path="res://_main/animationas/pig/attack.res" id="5_mjfoq"]
-[ext_resource type="Animation" uid="uid://bucbdnw4yt3yl" path="res://_main/animationas/pig/die.res" id="6_4k48m"]
 [ext_resource type="Animation" uid="uid://vuy8tafiyi3e" path="res://_main/animationas/pig/hit.res" id="7_dwbpe"]
 [ext_resource type="Animation" uid="uid://bj880nwk1xgj5" path="res://_main/animationas/pig/idle.res" id="8_mip6o"]
 [ext_resource type="Texture2D" uid="uid://cjuar7a00pi20" path="res://_main/sprites/sword.png" id="9_h58je"]
+[ext_resource type="Texture2D" uid="uid://bg8rctilxriop" path="res://_main/sprites/pig/Dead (34x28).png" id="10_l237a"]
 [ext_resource type="Texture2D" uid="uid://dk5wfdhkm8pm4" path="res://_main/sprites/down.png" id="11_dscqx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7s5jg"]
@@ -18,10 +18,49 @@ size = Vector2(109, 121)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hknjo"]
 bg_color = Color(1, 0.333121, 0.353417, 1)
 
+[sub_resource type="Animation" id="Animation_4amms"]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterSprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("10_l237a")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterSprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterSprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_itjng"]
 _data = {
 "attack": ExtResource("5_mjfoq"),
-"die": ExtResource("6_4k48m"),
+"die": SubResource("Animation_4amms"),
 "hit": ExtResource("7_dwbpe"),
 "idle": ExtResource("8_mip6o")
 }
@@ -59,16 +98,19 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ms25b"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_bgf7f"]
 states/attack/node = SubResource("AnimationNodeAnimation_btqr5")
 states/attack/position = Vector2(346, 272)
 states/die/node = SubResource("AnimationNodeAnimation_0ujnp")
 states/die/position = Vector2(517, 100)
 states/hit/node = SubResource("AnimationNodeAnimation_akh0r")
-states/hit/position = Vector2(517, 261)
+states/hit/position = Vector2(511, 262)
 states/idle/node = SubResource("AnimationNodeAnimation_mykoa")
 states/idle/position = Vector2(346, 101)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_0bg3l"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_bqic6"), "die", "End", SubResource("AnimationNodeStateMachineTransition_cp1aq"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_vdiq2"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ykl0u"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_cdent"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_npfne")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_0bg3l"), "idle", "die", SubResource("AnimationNodeStateMachineTransition_bqic6"), "die", "End", SubResource("AnimationNodeStateMachineTransition_cp1aq"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_vdiq2"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_ykl0u"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_cdent"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_npfne"), "hit", "die", SubResource("AnimationNodeStateMachineTransition_ms25b")]
+graph_offset = Vector2(-120, 55)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o7g2j"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -92,7 +134,7 @@ position = Vector2(-14, -56)
 scale = Vector2(4, 4)
 texture = ExtResource("2_pw68b")
 hframes = 11
-frame = 2
+frame = 3
 
 [node name="HealthBar" type="ProgressBar" parent="."]
 offset_left = -67.0
