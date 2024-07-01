@@ -77,13 +77,13 @@ func activate_item_pieces() -> void:
 		for block in piece.active_blocks:
 			var tile = block.hovered_tile
 			if piece.item_data.type == ItemData.ItemType.WEAPON and tile.tile_type == Tile.TYPE.ATTACK:
-				attack += 5
+				attack += 1
 			elif piece.item_data.type == ItemData.ItemType.ARMOR and tile.tile_type == Tile.TYPE.DEFEND:
-				shield += 5
+				shield += 1
 			elif piece.item_data.type == ItemData.ItemType.HEAL and tile.tile_type == Tile.TYPE.HEAL:
-				heal += 5
+				heal += 1
 			elif piece.item_data.type == ItemData.ItemType.SKILL and tile.tile_type == Tile.TYPE.EVADE:
-				aoe_damage += 5
+				aoe_damage += 1
 	if attack > 0:
 		player.attack(current_enemy, attack)
 	if aoe_damage > 0:

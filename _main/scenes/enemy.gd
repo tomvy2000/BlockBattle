@@ -45,7 +45,7 @@ func new_turn() -> void:
 	set_next_action()
 			
 func set_next_action() -> void:
-	var actions = ["attack", "attack", "attack", "heal", "shield_up"]
+	var actions = ["attack", "attack", "attack", "attack", "attack", "attack", "attack", "attack", "heal", "shield_up"]
 	actions.shuffle()
 	next_action = actions.pick_random()
 	match next_action:

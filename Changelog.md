@@ -15,3 +15,12 @@ To attack, player click on End Turn button. The game then calculate information 
 1. 4 types of items
 2. 2 types of enemies
 3. 1 skill
+
+## Balancing logs
+
+### 01/07/2024
+- Decrease board tile bonus from 5 to 1
+- Decrease item_01's attack from 10 to 5
+- Decrease item_02's shield from 10 to 5
+- Decrease item_04's attack from 10 to 5
+- Decrease player's health from 50 to 25
